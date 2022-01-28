@@ -2,6 +2,8 @@ const { join, resolve } = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const tailwindcss = require('tailwindcss');
+const autoprefixer = require('autoprefixer');
 const PACKAGE = require('./package.json');
 
 module.exports = (env, argv) => {
@@ -29,11 +31,22 @@ module.exports = (env, argv) => {
           use: 'html-loader',
         },
         {
-          test: /\.s[ac]ss$/i,
+          test: /\.css$/i,
           use: [
             'style-loader',
             'css-loader',
-            'sass-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                postcssOptions: {
+                  ident: 'postcss',
+                  plugins: [
+                    tailwindcss,
+                    autoprefixer,
+                  ],
+                },
+              },
+            },
           ],
         },
       ],
