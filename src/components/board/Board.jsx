@@ -5,13 +5,13 @@ import Square from '../square/Square';
 function Board({ squares }) {
   const board = [];
   let counter = 0;
-  for (let i = 0; i < Math.sqrt(squares.length); i += 1) {
+  for (let i = 1; i <= Math.sqrt(squares.length); i += 1) {
     const row = [];
     for (let j = 0; j < Math.sqrt(squares.length); j += 1) {
-      row.push(<Square value={squares[counter]} onClick={() => {}} />);
+      row.push(<Square key={counter} value={squares[counter]} onClick={() => {}} />);
       counter += 1;
     }
-    board.push(<div className="row">{row}</div>);
+    board.push(<div key={i} className="row">{row}</div>);
   }
 
   return (
